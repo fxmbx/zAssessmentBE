@@ -3,6 +3,8 @@ const Seller = require('../models/Seller')
 const Vehicle = require('../models/Vehicle')
 const ErrorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
+const path = require('path')
+
 
 
 //@route GET /api/v1/courses
@@ -80,8 +82,10 @@ exports.deleteVehicle = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: {} })
 })
 
-
+//upload pictutre
+//@route api/v1/vehicle/:vehicleid/photo
 exports.vehiclePhotoUpload = asyncHandler(async (req, res, next) => {
+    // console.log('Something ')
 
     const vehicle = await Vehicle.findById(req.params.id)
     if (!vehicle) {
@@ -97,11 +101,10 @@ exports.vehiclePhotoUpload = asyncHandler(async (req, res, next) => {
 
         return
     }
-    // console.log(`Files \n: ${req.files}`, req.files)
 
     // const file = req.files
     const file = req.files[Object.keys(req.files)[0]]
-    console.log(req.files[Object.keys(req.files)[0]])
+    // console.log(req.files[Object.keys(req.files)[0]])
 
     // console.log(typeof file)
     if (!file.mimetype.startsWith('image')) {
@@ -118,6 +121,7 @@ exports.vehiclePhotoUpload = asyncHandler(async (req, res, next) => {
 
     file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
         if (err) {
+            console.log(err, "😀")
             return next(new ErrorResponse('problem with file upload', 500))
         }
     })

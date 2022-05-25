@@ -22,8 +22,9 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(cors())
 app.use(mongoSanitize())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '/src/public')))
 
+app.use(fileupload())
 
 //Base Route
 app.use('/api/v1/', indexRouter)
