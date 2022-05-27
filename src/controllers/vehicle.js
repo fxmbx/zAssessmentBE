@@ -8,7 +8,7 @@ const path = require('path')
 
 
 //@route GET /api/v1/courses
-//       GET /api/v1/bootcamps/:sellerId/getVehicles
+//       GET /api/v1/vehicle/:sellerId/getVehicles
 exports.getVehicles = asyncHandler(async (req, res, next) => {
     if (req.params.sellerId) {
         const vehicles = await Vehicle.find({ seller: req.params.sellerId })
@@ -45,7 +45,7 @@ exports.addVehicle = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse(`No Sellecr with Id ${req.params.sellerId} found`, 404))
     }
     if (seller.user.toString() != req.user.id && req.user.role !== 'admin') {
-        next(new ErrorResponse(`User  ${req.user.id} is not authorized to add a vehicle to Seller ${bootcamp._id} account`, 403))
+        next(new ErrorResponse(`User  ${req.user.id} is not authorized to add a vehicle to Seller ${seller._id} account`, 403))
         return
     }
     const vehicle = await Vehicle.create(req.body)
