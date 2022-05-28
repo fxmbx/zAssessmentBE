@@ -22,7 +22,11 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(cors())
 app.use(mongoSanitize())
+<<<<<<< HEAD
 app.use(express.static(path.join(__dirname, '/')))
+=======
+app.use(express.static(path.join(__dirname, '/src/public')))
+>>>>>>> 4f7737d2c2d043fb9e87c31d9258e096f5334112
 
 app.use(fileupload())
 
